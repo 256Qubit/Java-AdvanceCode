@@ -4,9 +4,10 @@ import com.edu.info.manager.domain.Student;
 
 //Dao包 仓库管理 用于数据的增删改查
 public class StudentDao {
+    private Student[] students = new Student[5];
     public boolean addStudent(Student stu) {
 
-        Student[] students = new Student[5];
+
 
         int index = -1;
 
@@ -28,5 +29,9 @@ public class StudentDao {
             students[index] =stu;
             return true;
         }
+    }
+
+    public Student[] findAllStudent() {
+        return students;
     }
 }

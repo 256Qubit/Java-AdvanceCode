@@ -33,7 +33,7 @@ public class InfoManagerEntry {
                     break;
                 case "3":
                     System.out.println("[退出程序]");
-                    System.exit(0);
+                    System.exit(0);//退出当前正在运行的JVM虚拟机
                     break;
                 default:
                     System.out.println("[输入错误]");
