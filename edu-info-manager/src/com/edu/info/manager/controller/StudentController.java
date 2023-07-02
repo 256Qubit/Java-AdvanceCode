@@ -8,9 +8,13 @@ import java.util.Scanner;
 
 //controller包 客服接待，与用户打交道
 public class StudentController {
+
+    private StudentService studentService = new StudentService();
+
+    private Scanner sc = new Scanner(System.in);
     //开启学生管理系统，并展示学生管理系统菜单
     public void start() {
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
         Ring:while (true) {
             System.out.println("[学生管理系统]");
 
@@ -38,9 +42,11 @@ public class StudentController {
                     break;
                 case "3":
                     System.out.println("[修改学生]");
+                    deleteStudentById();
                     break;
                 case "4":
                     System.out.println("[查询学生]");
+                    findAllStudent();
                     break;
                 case "5":
                     System.out.println("[退出]");
@@ -53,11 +59,52 @@ public class StudentController {
         }
     }
 
+    public void deleteStudentById() {
+        String delId;
+        while (true){
+
+            System.out.println("请输入您需要删除的学生ID");
+            delId= sc.next();
+            boolean exists = studentService.isExists(delId);
+            if (!exists) {
+                System.out.println("您输入的ID不存在，请查证后输入：");
+            }
+            else {
+                break;
+            }
+        }
+        studentService.deleteStudentById(delId);
+        System.out.println("删除成功");
+
+
+    }
+
+    public void findAllStudent() {
+
+        //1.调用业务员中的获取方法，得道学生数组
+
+       Student[] stus=studentService.findAllStudent();
+       //2.判断数组中的地址是否为null
+       if (stus == null) {
+           System.out.println("查无信息，请添加后重试");
+           return;
+       }
+       //3.遍历数组，获取学生信息并打印在控制台
+       System.out.println("学号\t\t姓名\t年龄\t生日");
+
+       for (int i = 0; i < stus.length; i++) {
+           Student stu = stus[i];
+           if (stu == null) {
+               System.out.println(stu.getId()+"\t"+stu.getName()+"\t"+stu.getAge()+"\t\t"+stu.getBirthday());
+           }
+       }
+    }
+
     public void addStudent() {
         //1.键盘接受学生信息
-        StudentService studentService = new StudentService();
+        //StudentService studentService = new StudentService();
 
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
 
         String stuId;
 

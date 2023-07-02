@@ -27,4 +27,28 @@ public class StudentService {
         }
         return exists;
     }
+
+    public Student[] findAllStudent() {
+        //1.调用库管对象的findALLstudent获取学生对象数组
+        Student[] allStudent = studentDao.findAllStudent();
+        //2.判断数组中是否有学生信息
+        //数组中只要存在一个不是null的元素，那就代表有学生信息
+        boolean flag = false;
+        for (int i = 0; i < allStudent.length; i++) {
+            Student stu=allStudent[i];
+            if (stu != null) {
+                flag=true;
+                break;
+            }
+        }
+        if (flag){
+            return allStudent;
+        }else {
+            return null;
+        }
+    }
+
+    public void deleteStudentById(String delId) {
+        studentDao.deleteStudentById(delId);
+    }
 }
